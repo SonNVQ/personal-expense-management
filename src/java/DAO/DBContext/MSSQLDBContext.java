@@ -1,17 +1,23 @@
 package DAO.DBContext;
 
-import DAO.DBContext.DBContext;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MSSQLDBContext implements DBContext {
 
     /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)
     DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
     @Override
-    public Connection getConnection() throws Exception {
+    public Connection getConnection() throws SQLException {
         String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + ";databaseName=" + dbName + ";encrypt=false;trustServerCertificate=false;";
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MSSQLDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return DriverManager.getConnection(url, userID, password);
     }
 
