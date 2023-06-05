@@ -10,14 +10,14 @@ import java.util.List;
  */
 public interface CrudDAO<T, S> {
 
-    T add(T obj);
+    T save(T obj);
 
-    List<T> getAlls();
+    List<T> findAll();
 
-    T getById(S id);
+    T findByID(S id);
 
-    T updateById(S id, T newObj);
+    T update(T obj);
 
-    boolean deleteById(S id);
+    T delete(T obj);
 
 }
